@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile records",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user ID" },
+        "username": { "type": "string", "description": "User handle" },
+        "name": { "type": "string", "description": "Display name" },
+        "avatarUrl": { "type": "string", "description": "Profile picture URL" },
+        "bio": { "type": "string", "description": "Short bio" },
+        "website": { "type": "string", "description": "User website link" },
+        "postsCount": { "type": "number", "description": "Total user posts" },
+        "followersCount": { "type": "number", "description": "Follower count" },
+        "followingCount": { "type": "number", "description": "Following count" },
+        "isVerified": { "type": "boolean", "description": "Verified badge indicator" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": ["id", "username", "name", "avatarUrl"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Public social feed posts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Post ID" },
+        "userId": { "type": "string", "description": "Author user ID" },
+        "username": { "type": "string", "description": "Author username" },
+        "userAvatarUrl": { "type": "string", "description": "Author avatar URL" },
+        "mediaUrls": { "type": "array", "description": "Post images URLs list" },
+        "caption": { "type": "string", "description": "Post caption" },
+        "likesCount": { "type": "number", "description": "Likes counter" },
+        "commentsCount": { "type": "number", "description": "Comments counter" },
+        "location": { "type": "string", "description": "Location tag" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": ["id", "userId", "username", "mediaUrls", "caption", "likesCount"]
+    },
+    "PostLike": {
+      "title": "PostLike",
+      "description": "Per-user post like indicator",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "User ID who liked" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": ["userId"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "Comments on posts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Comment ID" },
+        "userId": { "type": "string", "description": "Author user ID" },
+        "username": { "type": "string", "description": "Author username" },
+        "userAvatarUrl": { "type": "string", "description": "Author avatar URL" },
+        "text": { "type": "string", "description": "Comment content" },
+        "likesCount": { "type": "number", "description": "Comment likes count" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp" }
+      },
+      "required": ["id", "userId", "username", "text"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "#/entities/User",
+      "description": "User profile collection"
+    },
+    "/posts/{postId}": {
+      "schema": "#/entities/Post",
+      "description": "Public social posts collection"
+    },
+    "/posts/{postId}/likes/{userId}": {
+      "schema": "#/entities/PostLike",
+      "description": "Likes subcollection on posts"
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "schema": "#/entities/Comment",
+      "description": "Comments subcollection on posts"
+    }
+  }
+}

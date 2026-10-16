@@ -1,0 +1,6 @@
+{
+  "name": "InstaSnap",
+  "description": "A rich Instagram-style social app with dynamic feeds, stories with ring animations, reels video experience, explore search and grid, interactive comments, likes, create post, and detailed user profiles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
